@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim import lr_scheduler
+import torchvision
 import numpy as np
 
 class CrackDetectorCNN(nn.Module):
@@ -55,3 +56,29 @@ def load_model(model_path, device):
     model = CrackDetectorCNN()
     model.load_state_dict(torch.load(model_path, map_location=device))
     return model
+
+def RESNET_model(device = 'cpu'):
+    # Load the model
+    model_conv = torchvision.models.resnet18(weights='IMAGENET1K_V1')
+    for param in model_conv.parameters():
+        param.requires_grad = False
+
+    num_ftrs = model_conv.fc.in_features
+    model_conv.fc = nn.Linear(num_ftrs, 2)
+
+    model_conv = model_conv.to(device)
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer_conv = optim.SGD(model_conv.fc.parameters(), lr=0.001, momentum=0.9)
+
+    # Decay LR by a factor of 0.1 every 7 epochs
+    exp_lr_scheduler = lr_scheduler.StepLR(optimizer_conv, step_size=7, gamma=0.1)
+
+    return model_conv, criterion, optimizer_conv, exp_lr_scheduler
+
+def load_RESNET_model(model_path, device = 'cpu'):
+    # Load the model
+    model_conv, criterion, optimizer_conv, exp_lr_scheduler = RESNET_model(model_path, device)
+    model_conv.load_state_dict(torch.load(model_path, map_location = device))
+    model_conv.eval()
+    return model_conv

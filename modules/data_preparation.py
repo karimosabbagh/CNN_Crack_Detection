@@ -42,9 +42,9 @@ def download_dataset(dataset_name, dataset_path):
     """
     # Ensure the destination directory exists
     os.makedirs(dataset_path, exist_ok=True)
+    # kaggle.api.dataset_download_files(dataset_name, path=dataset_path, unzip=True)
+    #if not os.path.exists(os.join(dataset_path,datas ):
     kaggle.api.dataset_download_files(dataset_name, path=dataset_path, unzip=True)
-    # if not os.path.exists(dataset_path):
-    #     kaggle.api.dataset_download_files(dataset_name, path=dataset_path, unzip=True)
 
 
 def process_dataset_testing(data_dir, subset_fraction=1):

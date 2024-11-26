@@ -280,7 +280,7 @@ def k_fold_cross_validation(model, dataset, criterion, optimizer_fn, scheduler_f
 
         # Train the model for this fold
         trained_model, best_acc, metrics = train_model(
-            model, criterion, optimizer, scheduler, dataloaders, dataset_sizes, device, num_epochs
+            model, criterion, optimizer, scheduler, dataloaders, dataset_sizes, device, num_epochs, params_file
         )
 
         # Collect metrics

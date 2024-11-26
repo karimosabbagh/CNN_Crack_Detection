@@ -35,7 +35,7 @@ def evaluate_model_on_test_set(model, test_loader, device):
     print(f"Test Recall: {recall:.4f}")
     print(f"Test F1-Score: {f1:.4f}")
 
-    return accuracy, precision, recall, f1
+    return accuracy, precision, recall, f1, all_labels, all_preds
 
 
 import torch
