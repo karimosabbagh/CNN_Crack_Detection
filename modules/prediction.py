@@ -11,8 +11,8 @@ def load_models():
         model = load_model(model)
         crack_models.append(model)
     res_net_model_path = 'CNN_models/RESNET.pt'
-    # res_net_model = load_RESNET_model(res_net_model_path)
-    res_net_model = None
+    res_net_model = load_RESNET_model(res_net_model_path)
+    # res_net_model = None
     return crack_models , res_net_model
         
 
@@ -75,16 +75,16 @@ def predict_crack(image_path, crack_models, res_net_model = None, device = 'cpu'
 
 
 
+if __name__ == "__main__":
+    # Load all models
+    crack_models, res_net_model = load_models()
 
-# Load all models
-crack_models, res_net_model = load_models()
+    # Predict crack for an image
+    image_path = "data/D1/Negative/00001.jpg"  # Replace with your image path
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    predictions = predict_crack(image_path, crack_models, res_net_model)
 
-# Predict crack for an image
-image_path = "data/D1/Negative/00001.jpg"  # Replace with your image path
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-predictions = predict_crack(image_path, crack_models, res_net_model)
+    # Print results
 
-# Print results
-
-for model_name, prediction in predictions.items():
-    print(f"{model_name}: {prediction}")
+    for model_name, prediction in predictions.items():
+        print(f"{model_name}: {prediction}")
