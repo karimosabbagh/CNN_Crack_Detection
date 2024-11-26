@@ -51,7 +51,7 @@ def build_model():
 
     return model, criterion, optimizer, exp_lr_scheduler
 
-def load_model(model_path, device):
+def load_model(model_path, device = 'cpu'):
     # Load the model
     model = CrackDetectorCNN()
     model.load_state_dict(torch.load(model_path, map_location=device))
@@ -59,7 +59,11 @@ def load_model(model_path, device):
 
 def RESNET_model(device = 'cpu'):
     # Load the model
-    model_conv = torchvision.models.resnet18(weights='IMAGENET1K_V1')
+    # model_conv = torchvision.models.resnet18(weights='IMAGENET1K_V1')
+    model_conv = torchvision.models.resnet18()
+    resnet_pretrained_weights_path = 'CNN_models/resnet18-f37072fd.pth'
+    state_dict = torch.load(resnet_pretrained_weights_path, map_location=device)
+    model_conv.load_state_dict(state_dict)
     for param in model_conv.parameters():
         param.requires_grad = False
 
@@ -78,7 +82,7 @@ def RESNET_model(device = 'cpu'):
 
 def load_RESNET_model(model_path, device = 'cpu'):
     # Load the model
-    model_conv, criterion, optimizer_conv, exp_lr_scheduler = RESNET_model(model_path, device)
+    model_conv, _, _, _ = RESNET_model()
     model_conv.load_state_dict(torch.load(model_path, map_location = device))
     model_conv.eval()
     return model_conv
