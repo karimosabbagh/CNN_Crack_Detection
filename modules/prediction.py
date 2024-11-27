@@ -1,7 +1,7 @@
 import torch
 from torchvision import transforms
 from PIL import Image
-from model import load_RESNET_model, load_model
+from modules.model import load_RESNET_model, load_model
 
 
 def load_models():
