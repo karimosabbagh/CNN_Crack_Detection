@@ -19,7 +19,7 @@ function App() {
 
     try {
       // Send POST request to /predict endpoint
-      const response = await fetch('/predict', {
+      const response = await fetch('http://127.0.0.1:5000/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,23 +71,10 @@ function App() {
       </div>
 
       <div className="parent">
-        <div className="child inline-block-child">
-        
-        <div>
-          <h3>Evaluation Results</h3>
-          <p>Accuracy: </p>
-          <p>Precision: </p>
-          <p>Recall: </p>
-          <p>F1 Score: </p>
-        </div>
-      
-          
-
-
-        </div>
-        <div className="child inline-block-child">2</div>
-        <div className="child inline-block-child">3</div>
-        <div className="child inline-block-child">4</div>
+        <div className="child inline-block-child">Model 1: <div>{evaluationResults?.Model_1}</div> </div>
+        <div className="child inline-block-child">Model 2: <div>{evaluationResults?.Model_2}</div> </div>
+        <div className="child inline-block-child">Model 3: <div>{evaluationResults?.Model_3}</div> </div>
+        <div className="child inline-block-child">Trained_RESNET: <div>{evaluationResults?.Trained_RESNET}</div> </div>
       </div>
     </div>
     </center>

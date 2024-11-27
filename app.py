@@ -1,7 +1,12 @@
 from flask import Flask, request, jsonify
 from modules.prediction import load_models, predict_crack
+from flask_cors import CORS  # Import CORS
+
+
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+
 
 # Load models when the server starts
 crack_models, res_net_model = load_models()
@@ -31,7 +36,7 @@ def predict():
     try:
         # Use the loaded models for prediction
         device = 'cpu'  # Change to 'cuda' if you have a GPU and want to use it
-        predictions = predict_crack(image_path, crack_models, res_net_model, device)
+        predictions = predict_crack("Frontend/Crack_Detection"+image_path, crack_models, res_net_model, device)
         return jsonify({'predictions': predictions}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
