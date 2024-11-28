@@ -2,13 +2,18 @@ import { useState } from 'react'
 import './App.css'
 import image1 from './testPictures/image_crack_neg_1.jpg'
 import image2 from './testPictures/image_crack_pos_1.jpg'
+import image3 from './testPictures/image_crack_pos_2.jpg'
+import image4 from './testPictures/image_crack_neg_2.jpg'
+import image5 from './testPictures/image_crack_neg_3.jpg'
+import image6 from './testPictures/image_crack_pos_3.jpg'
+import image7 from './testPictures/image_crack_pos_4.jpg'
 import Image from './components/Image'
 
 function App() {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [evaluationResults, setEvaluationResults] = useState(null);
-  const list = [image1, image2];
+  const list = [image1, image2, image3, image4, image5, image6, image7];
 
 
   const handleTestImage = async () => {
